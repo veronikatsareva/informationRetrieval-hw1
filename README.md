@@ -27,7 +27,7 @@
 ├── index.py
 ├── main.py
 ├── preprocess.py
-└── requirements.txt
+└── environment.yml
 ```
 
 Внутри архива `films_data.zip` лежит датасет, из которого берутся данные. Они обрабатываются внутри `preprocess.py`.
@@ -36,7 +36,7 @@
 
 Сам поиск можно запустить при помощи `main.py`, о чем написано в следующей разделе.
 
-Все необходимые библиотеки и их версии перечислены в `requirements.txt`.
+Все необходимые библиотеки и их версии перечислены в `environment.yml`.
 
 ## Запуск кода
 
@@ -44,27 +44,15 @@
 
 Перед тем как работать с поиском, необходимо
 
-1) Cоздать виртуальное окружение 
+1) Cоздать виртуальное окружение и установить все библиотеки из `environment.yml`
 
 ```
-<!-- для mac os x -->
-cd /path/to/informationRetrieval-hw1
-python3 -m venv venv
-source venv/bin/activate
-
-<!-- для windows -->
-cd C:\path\to\to/informationRetrieval-hw1
-python -m venv venv
-venv\Scripts\activate.bat
+conda env create -f environment.yml
+conda activate hw1
+python -m spacy download ru_core_news_sm
 ```
 
-2) Установить необходимые библиотеки
-
-```
-pip install -r requirements.txt
-```
-
-3) Разархивировать `films_data.zip`, чтобы достать из него файл с расширением `.csv`. Оригинальный файл слишком большой для загрузки в репозиторий, поэтому был создан архив. Файл так же можно скачать либо с [Kaggle](https://www.kaggle.com/datasets/maksimpotorochin/movie-plots-from-wikipedia-in-russian), либо с [диска](https://drive.google.com/file/d/1VYZJZiouye9M3fy9lpts116PZ4ji_cTU/view?usp=sharing).
+2) Разархивировать `films_data.zip`, чтобы достать из него файл с расширением `.csv`. Оригинальный файл слишком большой для загрузки в репозиторий, поэтому был создан архив. Файл так же можно скачать либо с [Kaggle](https://www.kaggle.com/datasets/maksimpotorochin/movie-plots-from-wikipedia-in-russian), либо с [диска](https://drive.google.com/file/d/1VYZJZiouye9M3fy9lpts116PZ4ji_cTU/view?usp=sharing).
 
 Для работы с поиском необходимо запустить только `main.py` (остальные файлы являются вспомогательными). После его запуска данные из `films_data.csv` будут прочитаны, предобработаны и векторизованы / записаны в словарь. На данном этапе данные никак не кешируются и процесс обработки повторяется при каждом запуске кода (время работы зависит от количества выбранных записей из датасета; для $1500$ документов у меня предобработка занимала $7-10$ минут).
 
